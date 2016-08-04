@@ -4,7 +4,7 @@
 
 ###Example Inkscape file
 
-[example]()
+[example Inkscape file](https://github.com/macbuse/Apollonian/blob/master/apollonian.svg)
 
 
 ##Installation 
