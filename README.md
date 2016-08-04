@@ -26,7 +26,8 @@ For OS X - $HOME/.config/inkscape/extensions
 
 ##Dependencies
 
-Needs Anaconda python on OS X.
+Needs Anaconda python on OS X but should work with any python 2.7* installation
+after modifying as per installation instructions.
 
 ##Notes
 
