@@ -9,7 +9,7 @@ In a similar way we can construct another new circle C7 that is tangent to C4, C
 
 >Continuing the construction stage by stage in this way ad infinituum  one obtains  a set of circles which is an Apollonian gasket.
 
-Source: [Wikipedia]((https://en.wikipedia.org/wiki/Apollonian_gasket)
+Source: [Wikipedia](https://en.wikipedia.org/wiki/Apollonian_gasket)
 
 
 ###Example Inkscape file
