@@ -10,7 +10,7 @@
 ##Installation 
 
 1. Edit the first line of apollon_inx.py to point to your python installation if you don't use [Anaconda](https://www.continuum.io/downloads) on OSX.
-1. Copy the .inx and .py to  inkscape extensions folder :
+1. Copy the .inx and all the .py to  inkscape extensions folder :
 For OS X - $HOME/.config/inkscape/extensions
 1. Open Inkscape. 
 1. Activate via the Example submenu of Extensions menu.
