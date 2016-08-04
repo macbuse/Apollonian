@@ -24,3 +24,4 @@ Needs Anaconda python on OS X.
 The module apollon_inx.py wraps Ludger Sandig's 
 [code](https://lsandig.org/blog/2014/08/apollon-python/)
 for generating the circles of the gasket.
+In particular a slightly modified module ag.py.
