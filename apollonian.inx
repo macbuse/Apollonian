@@ -3,7 +3,7 @@
 	<!-- _name must have same name as .py file but capitalise it. Shows on Menu this way-->
 	<_name>Apollonian Gasket 0.0</_name>
 	<!-- id should be unique. Associates entered values with this menu -->
-	<id>githubacct.uniqueid.apollon</id>
+	<id>githubacct.uniqueid.apollonian</id>
 	<!-- mention a dependency here and will check for existence (optional)-->
 	<dependency type="executable" location="extensions">apollon_inx.py</dependency>
 	<dependency type="executable" location="extensions">simplestyle.py</dependency>
