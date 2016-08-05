@@ -8,6 +8,7 @@ Ripped from template.py
 import inkex       # Required
 import simplestyle # will be needed here for styles support
 
+
 import ag
 
 
@@ -42,13 +43,6 @@ class Myextension(inkex.Effect): # choose a better name
         " define how the options are mapped from the inx file "
         inkex.Effect.__init__(self) # initialize the super class
         
-        # Two ways to get debug info:
-        # OR just use inkex.debug(string) instead...
-        try:
-            self.tty = open("/dev/tty", 'w')
-        except:
-            self.tty = open(os.devnull, 'w')  # '/dev/null' for POSIX, 'nul' for Windows.
-            # print >>self.tty, "gears-dev " + __version__
             
         # list of parameters defined in the .inx file
         self.OptionParser.add_option("-d", "--depth",
