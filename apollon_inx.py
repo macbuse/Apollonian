@@ -7,12 +7,9 @@ Ripped from template.py
 
 import inkex       # Required
 import simplestyle # will be needed here for styles support
-
-
 import ag
 
-
-__version__ = '0.1'
+__version__ = '0.0'
 
 inkex.localize()
 
