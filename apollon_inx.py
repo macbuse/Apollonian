@@ -141,32 +141,29 @@ class Myextension(inkex.Effect): # choose a better name
         style_curve = { 'stroke': path_stroke,
                  'fill': 'none',
                  'stroke-width': path_stroke_width }
-        
-        styles = [ { 'stroke': 'none', 'fill': '#000000', 'stroke-width': 0 },
-                   { 'stroke': 'none',  'fill': '#FFFF00', 'stroke-width': 0 }]
-        
-        styles = [simplestyle.formatStyle(x) for x in styles]
 
         
-
         # This finds center of current view in inkscape
         t = 'translate(%s,%s)' % (self.view_center[0], self.view_center[1] )
         
-        # Make a nice useful name
+        # add a group to the document's current layer
+        #all the circles inherit style from this group
         g_attribs = { inkex.addNS('label','inkscape'): 'zengon' + "_%d"%(self.options.depth),
                       inkex.addNS('transform-center-x','inkscape'): str(0),
                       inkex.addNS('transform-center-y','inkscape'): str(0),
                       'transform': t,
                       'style' : simplestyle.formatStyle(style_curve),
                       'info':'N: '}
-        # add the group to the document's current layer
         topgroup = inkex.etree.SubElement(self.current_layer, 'g', g_attribs )
         
-        ff = 200
+        
         circles = ag.main(c1=self.options.c1,
                          c2=self.options.c2,
                          c3=self.options.c3,
                          depth=self.options.depth)
+        
+        #shrink the circles so they don't touch
+        #useful for laser cutting
         
         if self.options.shrink:
             circles = circles[1:]
@@ -177,15 +174,14 @@ class Myextension(inkex.Effect): # choose a better name
                 else:
                     cc.r *= .9
                 
-            
-        for c in circles:
-            
+        scale_factor = 200
+        for c in circles:  
             cx, cy, r = c.m.real, c.m.imag, abs(c.r)
-        
-            cx, cy, r  = ff*cx , ff*cy, ff*r
+            
+            #rescale and add circle to document
+            cx, cy, r  = scale_factor*cx , scale_factor*cy, scale_factor*r
             draw_SVG_circle(topgroup,r,cx,cy,'apo')          
                          
-        
         
 def xy_para(t, vx=50,vy=50):
     return vx*t, vy*t - 5*t*t
