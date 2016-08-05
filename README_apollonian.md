@@ -24,7 +24,7 @@ Source: [Wikipedia](https://en.wikipedia.org/wiki/Apollonian_gasket)
 1. Copy the .inx and all the .py to  inkscape extensions folder :
 For OS X - $HOME/.config/inkscape/extensions
 1. Open Inkscape. 
-1. Activate via the **Examples** submenu of **Extensions** menu.
+1. Activate via the **Render** submenu of **Extensions** menu.
 
 ##Dependencies
 
