@@ -2,13 +2,11 @@
 # -*- coding: utf-8 -*-
 '''
 Ripped from template.py 
-- makes a "zenagon"
+- makes an apollonian gasket
 '''
 
 import inkex       # Required
 import simplestyle # will be needed here for styles support
-import os          # here for alternative debug method only - so not usually required.
-import random
 
 import ag
 
@@ -16,7 +14,6 @@ import ag
 __version__ = '0.1'
 
 inkex.localize()
-
 
 
 ### Your helper functions go here
@@ -29,43 +26,16 @@ def cplxs2pts(zs):
     return tt
 
 
-def  zen_tris(t = .1,
-           depth=10,
-           base_triangle=[0,200,200J],
-           edges=True):
+def draw_SVG_circle(parent, r, cx, cy, name):
+    " structre an SVG circle entity under parent "
+    circ_attribs = { 'cx': str(cx), 'cy': str(cy), 
+                    'r': str(r),
+                    inkex.addNS('label','inkscape'): name}
     
-    tris  = [ base_triangle[:] ]
     
-    indxs = [0,1,2,0]
-    edges = zip(indxs, indxs[1:])
-    for k in range(depth):
-        tt = tris[-1]
-        tris.append([ t*tt[i]  + (1-t)*tt[j] for i,j in edges] )
+    circle = inkex.etree.SubElement(parent, inkex.addNS('circle','svg'), circ_attribs )
     
-    return tris
-        
     
-def zengon(t = .1,
-           depth=10,
-           base_triangle=[0,200,200J],
-           edges=True):
-    
-    pts  = base_triangle[:]
-    pts.append(base_triangle[0])
-    
-    for k in range(depth*3):
-        pts.append(t*pts[-2] + (1-t)*pts[-3])
-    
-    tx,ty = pts[0].real,pts[0].imag
-    if not edges:
-         pts = pts[3:]
-    
-    pts = ['%.2f,%.2f'%(z.real,z.imag) for z in pts ]
-    return  "M %f %f L %s  "%(tx,ty,' '.join(pts))
-      
-    
-
-
 class Myextension(inkex.Effect): # choose a better name
     
     def __init__(self):
@@ -182,19 +152,7 @@ class Myextension(inkex.Effect): # choose a better name
             cx, cy, r  = scale_factor*cx , scale_factor*cy, scale_factor*r
             draw_SVG_circle(topgroup,r,cx,cy,'apo')          
                          
-        
-def xy_para(t, vx=50,vy=50):
-    return vx*t, vy*t - 5*t*t
-
-
-def draw_SVG_circle(parent, r, cx, cy, name):
-    " structre an SVG circle entity under parent "
-    circ_attribs = { 'cx': str(cx), 'cy': str(cy), 
-                    'r': str(r),
-                    inkex.addNS('label','inkscape'): name}
-    
-    
-    circle = inkex.etree.SubElement(parent, inkex.addNS('circle','svg'), circ_attribs )    
+         
 
 
 if __name__ == '__main__':
