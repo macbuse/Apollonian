@@ -47,7 +47,7 @@
 	<effect>
 	<object-type>all</object-type>
 		<effects-menu>
-			<submenu _name="Examples"/> 
+			<submenu _name="Render"/> 
 		</effects-menu>
 	</effect>
 	<!-- py file again -->
