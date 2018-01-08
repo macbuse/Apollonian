@@ -13,25 +13,25 @@ In a similar way we can construct another new circle C7 that is tangent to C4, C
 Source: [Wikipedia](https://en.wikipedia.org/wiki/Apollonian_gasket)
 
 
-###Example Inkscape file
+### Example Inkscape file
 
 [example Inkscape file](https://github.com/macbuse/Apollonian/blob/master/apollonian.svg)
 
 
-##Installation 
+## Installation 
 
 1. Edit the first line of apollon_inx.py to point to your python installation if you don't use [Anaconda](https://www.continuum.io/downloads) on OSX.
 1. Copy the .inx and all the .py to  inkscape extensions folder :
-For OS X - $HOME/.config/inkscape/extensions
+For OS X - `$HOME/.config/inkscape/extensions`
 1. Open Inkscape. 
 1. Activate via the **Render** submenu of **Extensions** menu.
 
-##Dependencies
+## Dependencies
 
 Needs Anaconda python on OS X but should work with any python 2.7* installation
 after modifying as per installation instructions.
 
-##Notes
+## Notes
 
 The module apollon_inx.py wraps Ludger Sandig's 
 [code](https://lsandig.org/blog/2014/08/apollon-python/)
