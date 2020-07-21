@@ -8,11 +8,11 @@ Ripped from template.py
 import inkex       # Required
 import simplestyle # will be needed here for styles support
 import ag
+from lxml import etree
 
 __version__ = '0.0'
 
-inkex.localize()
-
+inkex.localization.localize()
 
 ### Your helper functions go here
 
@@ -31,7 +31,7 @@ def draw_SVG_circle(parent, r, cx, cy, name):
                     inkex.addNS('label','inkscape'): name}
     
     
-    circle = inkex.etree.SubElement(parent, inkex.addNS('circle','svg'), circ_attribs )
+    circle = etree.SubElement(parent, inkex.addNS('circle','svg'), circ_attribs )
     
     
 class Myextension(inkex.Effect): # choose a better name
@@ -42,35 +42,35 @@ class Myextension(inkex.Effect): # choose a better name
         
             
         # list of parameters defined in the .inx file
-        self.OptionParser.add_option("-d", "--depth",
-                                     action="store", type="int",
+        self.arg_parser.add_argument("-d", "--depth",
+                                     action="store", type=int,
                                      dest="depth", default=3,
                                      help="command line help")
         
-        self.OptionParser.add_option("", "--c1",
-                                     action="store", type="float",
+        self.arg_parser.add_argument("-j", "--c1",
+                                     action="store", type=float,
                                      dest="c1", default=2.0,
                                      help="command line help")
         
-        self.OptionParser.add_option("", "--c2",
-                                     action="store", type="float",
+        self.arg_parser.add_argument("-k", "--c2",
+                                     action="store", type=float,
                                      dest="c2", default=3.0,
                                      help="command line help")
         
-        self.OptionParser.add_option("", "--c3",
-                                     action="store", type="float",
+        self.arg_parser.add_argument("-l", "--c3",
+                                     action="store", type=float,
                                      dest="c3", default=3.0,
                                      help="command line help")
         
         
-        self.OptionParser.add_option("-x", "--shrink",
-                                     action="store", type="inkbool", 
+        self.arg_parser.add_argument("-x", "--shrink",
+                                     action="store", type=inkex.Boolean, 
                                      dest="shrink", default=True,
                                      help="command line help")
         
         # here so we can have tabs - but we do not use it directly - else error
-        self.OptionParser.add_option("", "--active-tab",
-                                     action="store", type="string",
+        self.arg_parser.add_argument("-a", "--active-tab",
+                                     action="store", type=str,
                                      dest="active_tab", default='title', # use a legitmate default
                                      help="Active tab.")
         
@@ -105,7 +105,7 @@ class Myextension(inkex.Effect): # choose a better name
 
         
         # This finds center of current view in inkscape
-        t = 'translate(%s,%s)' % (self.view_center[0], self.view_center[1] )
+        t = 'translate(%s,%s)' % (self.svg.namedview.center[0], self.svg.namedview.center[1] )
         
         # add a group to the document's current layer
         #all the circles inherit style from this group
@@ -113,12 +113,12 @@ class Myextension(inkex.Effect): # choose a better name
                       inkex.addNS('transform-center-x','inkscape'): str(0),
                       inkex.addNS('transform-center-y','inkscape'): str(0),
                       'transform': t,
-                      'style' : simplestyle.formatStyle(style_curve),
+                      'style' : str(inkex.Style((style_curve))),
                       'info':'N: '}
-        topgroup = inkex.etree.SubElement(self.current_layer, 'g', g_attribs )
+        topgroup = etree.SubElement(self.svg.get_current_layer(), 'g', g_attribs )
         
         
-        circles = ag.main(c1=self.options.c1,
+        circles = fablabchemnitz_apolloniangasket_func.main(c1=self.options.c1,
                          c2=self.options.c2,
                          c3=self.options.c3,
                          depth=self.options.depth)
@@ -148,6 +148,5 @@ class Myextension(inkex.Effect): # choose a better name
 
 if __name__ == '__main__':
     e = Myextension()
-    e.affect()
-
+    e.run()
 
