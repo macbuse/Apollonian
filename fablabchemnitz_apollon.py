@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-
+#!/usr/bin/env python3
 # Generate Apollonian Gaskets -- the math part.
 
 # Copyright (c) 2014 Ludger Sandig

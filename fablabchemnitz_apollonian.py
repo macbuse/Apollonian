@@ -1,28 +1,17 @@
-#!$HOME/anaconda/bin/python
-# -*- coding: utf-8 -*-
-'''
-Ripped from template.py 
-- makes an apollonian gasket
-'''
-
-import inkex       # Required
-import simplestyle # will be needed here for styles support
-import ag
+#!/usr/bin/env python3
+import inkex
+import fablabchemnitz_apolloniangasket_func
 from lxml import etree
 
 __version__ = '0.0'
 
 inkex.localization.localize()
 
-### Your helper functions go here
-
-
 def cplxs2pts(zs):
     tt = []
     for z in zs:
         tt.extend([z.real,z.imag])
     return tt
-
 
 def draw_SVG_circle(parent, r, cx, cy, name):
     " structre an SVG circle entity under parent "
@@ -32,78 +21,40 @@ def draw_SVG_circle(parent, r, cx, cy, name):
     
     
     circle = etree.SubElement(parent, inkex.addNS('circle','svg'), circ_attribs )
-    
-    
-class Myextension(inkex.Effect): # choose a better name
+
+class Gasket(inkex.Effect): # choose a better name
     
     def __init__(self):
         " define how the options are mapped from the inx file "
         inkex.Effect.__init__(self) # initialize the super class
         
-            
         # list of parameters defined in the .inx file
-        self.arg_parser.add_argument("-d", "--depth",
-                                     action="store", type=int,
-                                     dest="depth", default=3,
-                                     help="command line help")
-        
-        self.arg_parser.add_argument("-j", "--c1",
-                                     action="store", type=float,
-                                     dest="c1", default=2.0,
-                                     help="command line help")
-        
-        self.arg_parser.add_argument("-k", "--c2",
-                                     action="store", type=float,
-                                     dest="c2", default=3.0,
-                                     help="command line help")
-        
-        self.arg_parser.add_argument("-l", "--c3",
-                                     action="store", type=float,
-                                     dest="c3", default=3.0,
-                                     help="command line help")
-        
-        
-        self.arg_parser.add_argument("-x", "--shrink",
-                                     action="store", type=inkex.Boolean, 
-                                     dest="shrink", default=True,
-                                     help="command line help")
-        
-        # here so we can have tabs - but we do not use it directly - else error
-        self.arg_parser.add_argument("-a", "--active-tab",
-                                     action="store", type=str,
-                                     dest="active_tab", default='title', # use a legitmate default
-                                     help="Active tab.")
-        
- 
-           
+        self.arg_parser.add_argument("--depth",type=int, default=3, help="command line help")
+        self.arg_parser.add_argument("--c1", type=float, default=2.0, help="command line help")
+        self.arg_parser.add_argument("--c2", type=float, default=3.0, help="command line help")
+        self.arg_parser.add_argument("--c3", type=float, default=3.0, help="command line help")
+        self.arg_parser.add_argument("--shrink", type=inkex.Boolean, default=True, help="command line help")
+        self.arg_parser.add_argument("--active_tab", default='title', help="Active tab.")
+              
     def calc_unit_factor(self):
-        """ return the scale factor for all dimension conversions.
-            - The document units are always irrelevant as
-              everything in inkscape is expected to be in 90dpi pixel units
-        """
-        # namedView = self.document.getroot().find(inkex.addNS('namedview', 'sodipodi'))
-        # doc_units = self.getUnittouu(str(1.0) + namedView.get(inkex.addNS('document-units', 'inkscape')))
-        unit_factor = self.getUnittouu(str(1.0) + self.options.units)
+        unit_factor = self.svg.unittouu(str(1.0) + self.options.units)
         return unit_factor
-
 
 ### -------------------------------------------------------------------
 ### Main function and is called when the extension is run.
-
     
     def effect(self):
 
         #set up path styles
         path_stroke = '#DD0000' # take color from tab3
         path_fill   = 'none'     # no fill - just a line
-        path_stroke_width  = 1. # can also be in form '0.6mm'
+        path_stroke_width  = self.svg.unittouu(str(0.1) + "mm")
         page_id = self.options.active_tab # sometimes wrong the very first time
         
         style_curve = { 'stroke': path_stroke,
                  'fill': 'none',
                  'stroke-width': path_stroke_width }
 
-        
         # This finds center of current view in inkscape
         t = 'translate(%s,%s)' % (self.svg.namedview.center[0], self.svg.namedview.center[1] )
         
@@ -116,8 +67,7 @@ class Myextension(inkex.Effect): # choose a better name
                       'style' : str(inkex.Style((style_curve))),
                       'info':'N: '}
         topgroup = etree.SubElement(self.svg.get_current_layer(), 'g', g_attribs )
-        
-        
+           
         circles = fablabchemnitz_apolloniangasket_func.main(c1=self.options.c1,
                          c2=self.options.c2,
                          c3=self.options.c3,
@@ -143,10 +93,5 @@ class Myextension(inkex.Effect): # choose a better name
             cx, cy, r  = scale_factor*cx , scale_factor*cy, scale_factor*r
             draw_SVG_circle(topgroup,r,cx,cy,'apo')          
                          
-         
-
-
 if __name__ == '__main__':
-    e = Myextension()
-    e.run()
-
+    Gasket().run()
