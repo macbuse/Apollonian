@@ -121,5 +121,4 @@ def main(c1=3.,c2=2.,c3=2.,depth=5):
     biggest = abs(max(ag.genCircles, key=lambda c: abs(c.r.real)).r.real)
 
     return ag.genCircles
-  
-
+ 
