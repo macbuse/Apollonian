@@ -1,7 +1,6 @@
 # Apollonian
 
-[Inkscape](https://inkscape.org/en/) extension to make Apollonian gaskets.
-Tested Inkscape 0.91.
+[Inkscape](https://inkscape.org/en/) extension to make Apollonian gaskets. Ported as Fork to make it compatible with InkScape 1.0+
 
 >An Apollonian gasket can be constructed as follows. Start with three circles C1, C2 and C3, each one of which is tangent to the other two (in the general construction, these three circles can be any size, as long as they have common tangents). Apollonius discovered that there are two other non-intersecting circles, C4 and C5, which have the property that they are tangent to all three of the original circles – these are called Apollonian circles. Adding the two Apollonian circles to the original three, we now have five circles. 
 
