@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#!/usr/bin/env python3
 
 # Command line program to create svg apollonian circles
 
@@ -18,16 +18,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Apollon.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
-#import sys
 import math
-
-from apollon import ApollonianGasket
-#from coloring import ColorMap, ColorScheme
-
-
-
+from fablabchemnitz_apollon import ApollonianGasket
 
 def ag_to_svg(circles, colors, tresh=0.00005):
     """
@@ -39,7 +31,7 @@ def ag_to_svg(circles, colors, tresh=0.00005):
     svg = []
     
     tresh = .000005
-    print '>>', tresh
+    print ('>>', tresh)
     
     # Find the biggest circle, which hopefully is the enclosing one
     # and has a negative radius because of this. Note that this does
@@ -70,7 +62,7 @@ def ag_to_svg(circles, colors, tresh=0.00005):
         # Iterate through circle list, circles with radius<radmin
         # will not be saved because they are too small for printing.
         radmin = tresh * abs(big.r)
-        print radmin
+        print(radmin)
 
         for c in circles:
             if abs(c.r) > radmin:
@@ -100,8 +92,6 @@ def impossible_combination(c1, c2, c3):
     return impossible
 
 def main(c1=3.,c2=2.,c3=2.,depth=5):
-
-
     # Sanity checks
     for c in [c1, c2,c3]:
         if c == 0:
@@ -110,7 +100,6 @@ def main(c1=3.,c2=2.,c3=2.,depth=5):
     if impossible_combination(c1, c2, c3):
         print("Error: no apollonian gasket possible for these curvatures")
         exit(1)
-
 
     ag = ApollonianGasket(c1, c2, c3)
  
@@ -121,5 +110,3 @@ def main(c1=3.,c2=2.,c3=2.,depth=5):
     biggest = abs(max(ag.genCircles, key=lambda c: abs(c.r.real)).r.real)
 
     return ag.genCircles
-  
-
